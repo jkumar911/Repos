@@ -5,7 +5,7 @@ resource "azurerm_backup_policy_vm" "vmdaily" {
   resource_group_name = azurerm_resource_group.rg.name
   recovery_vault_name = each.value.rsv_name
   timezone = "UTC"
-  instant_restore_retention_days = each.value
+  instant_restore_retention_days = each.value.instant_restore_retention_days
 
   backup {
     frequency = each.value.schedule_frequency
