@@ -95,21 +95,22 @@ variable "vaulted_file_backup_policy" {
 
 variable "backup_policy_vmdly" {
   type = list(object({
-    rsv_name                     = string
-    backup_policy_vmdly_name     = string
-    schedule_frequency           = string
-    run_time                     = list(string)
-    retention_daily_count        = number
-    retention_monthly_count      = number
-    retention_monthly_day        = list(string)
-    retention_monthly_week       = list(string)
+    rsv_name                       = string
+    backup_policy_vmdly_name       = string
+    schedule_frequency             = string
+    run_time                       = string
+    instant_restore_retention_days = number
+    retention_daily_count          = number
+    retention_monthly_count        = number
+    retention_monthly_day          = list(string)
+    retention_monthly_week         = list(string)
   }))
   default = [ {
     rsv_name                     = "RSV-LRS-01"
     backup_policy_vmdly_name     = "BPDAILY01"
     instant_restore_retention_days = 3
     schedule_frequency           = "Daily"
-    run_time                     = [ "2026-04-09T10:00:00Z" ]
+    run_time                     = "10:00" # Time in HH:mm format
     retention_daily_count        = 7
     retention_monthly_count      = 3
     retention_monthly_day        = [ "Sunday" ]
@@ -120,7 +121,7 @@ variable "backup_policy_vmdly" {
     backup_policy_vmdly_name     = "BPDAILY01"
     instant_restore_retention_days = 3
     schedule_frequency           = "Daily"
-    run_time                     = [ "2026-04-09T10:00:00Z" ]
+    run_time                     = "10:00" # Time in HH:mm format
     retention_daily_count        = 7
     retention_monthly_count      = 3
     retention_monthly_day        = [ "Sunday" ]
@@ -131,7 +132,7 @@ variable "backup_policy_vmdly" {
     backup_policy_vmdly_name     = "BPDAILY01"
     instant_restore_retention_days = 3
     schedule_frequency           = "Daily"
-    run_time                     = [ "2026-04-09T10:00:00Z" ]
+    run_time                     = "10:00" # Time in HH:mm format
     retention_daily_count        = 7
     retention_monthly_count      = 3
     retention_monthly_day        = [ "Sunday" ]
