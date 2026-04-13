@@ -1,6 +1,6 @@
 resource "azurerm_backup_policy_vm" "vmhourly" {
     depends_on = [azurerm_recovery_services_vault.vault]
-    for_each { for vmpolicy in var.backup_policy_vmhrly : "${vmpolicy.rsv_name}-${vmpolicy.backup_policy_vmhrly_name}" => vmpolicy }
+    for_each   = { for vmhrpolicy in var.backup_policy_vmhrly : "${vmhrpolicy.rsv_name}-${vmhrpolicy.backup_policy_vmhrly_name}" => vmhrpolicy }
     name       = each.value.backup_policy_vmhrly_name    
     resource_group_name = azurerm_resource_group.rg.name
     recovery_vault_name = each.value.rsv_name
@@ -21,7 +21,9 @@ resource "azurerm_backup_policy_vm" "vmhourly" {
     retention_monthly {
         count    = each.value.retention_monthly_count
         weekdays = each.value.retention_monthly_weekdays
-        week     = each.value.retention_monthly_week
+        weeks     = each.value.retention_monthly_week
     }
+
+    policy_type = "V2"
 
 }
