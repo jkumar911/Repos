@@ -1,6 +1,6 @@
 resource "azurerm_backup_policy_vm" "vmhourly" {
     depends_on = [azurerm_recovery_services_vault.vault]
-    for each { for vmpolicy in var.backup_policy_vmhrly : "${vmpolicy.rsv_name}-${vmpolicy.backup_policy_vmhrly_name}" => vmpolicy }
+    for_each { for vmpolicy in var.backup_policy_vmhrly : "${vmpolicy.rsv_name}-${vmpolicy.backup_policy_vmhrly_name}" => vmpolicy }
     name       = each.value.backup_policy_vmhrly_name    
     resource_group_name = azurerm_resource_group.rg.name
     recovery_vault_name = each.value.rsv_name
