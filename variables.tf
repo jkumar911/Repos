@@ -140,6 +140,61 @@ variable "backup_policy_vmdly" {
   } ]
 }
 
+variable "backup_policy_vmhrly" {
+  type = list(object({
+    rsv_name                       = string
+    backup_policy_vmhrly_name      = string
+    backup_frequency               = string
+    backup_time                    = string
+    backup_hour_interval           = number
+    backup_hour_duration           = number
+    instant_restore_retention_days = number
+    retention_daily_count          = number
+    retention_monthly_count        = number
+    retention_monthly_week         = list(string)
+    retention_monthly_weekdays     = list(string)
+  }))
+  default = [ {
+    rsv_name                       = "RSV-LRS-01"
+    backup_policy_vmhrly_name      = "BPHOURLY01"
+    backup_frequency               = "Hourly"
+    backup_time                    = "08:00" # Time in HH:mm format
+    backup_hour_interval           = 4
+    backup_hour_duration           = 24
+    instant_restore_retention_days = 2
+    retention_daily_count          = 7
+    retention_monthly_count        = 3
+    retention_monthly_week         = [ "First" ]
+    retention_monthly_weekdays    = [ "Sunday" ]
+  },
+{
+    rsv_name                       = "RSV-ZRS-01"
+    backup_policy_vmhrly_name      = "BPHOURLY01"
+    backup_frequency               = "Hourly"
+    backup_time                    = "08:00" # Time in HH:mm format
+    backup_hour_interval           = 4
+    backup_hour_duration           = 24
+    instant_restore_retention_days = 2
+    retention_daily_count          = 7
+    retention_monthly_count        = 3
+    retention_monthly_week         = [ "First" ]
+    retention_monthly_weekdays     = [ "Sunday" ]
+  },
+{
+    rsv_name                       = "RSV-GRS-01"
+    backup_policy_vmhrly_name      = "BPHOURLY01"
+    backup_frequency               = "Hourly"
+    backup_time                    = "10:00" # Time in HH:mm format
+    backup_hour_interval           = 4
+    backup_hour_duration           = 24
+    instant_restore_retention_days = 2
+    retention_daily_count          = 7
+    retention_monthly_count        = 3
+    retention_monthly_week         = [ "First" ]
+    retention_monthly_weekdays     = [ "Sunday" ]
+  } ]
+}
+
 variable "ret_daily_sch" {
   type		= string
   default	= null
