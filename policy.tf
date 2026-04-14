@@ -1,10 +1,8 @@
 resource "azapi_resource" "vaultedPolicy" {
    depends_on  		= [azurerm_recovery_services_vault.vault]
    type        		= "Microsoft.RecoveryServices/vaults/backupPolicies@2025-08-01"
-   for_each    		= { for vaulted_policy in var.vaulted_file_backup_policy : "${vaulted_policy.rsv_redundancy}-${vaulted_policy.rsvindex}"  => vaulted_policy }
+   for_each    		= { for vaulted_policy in var.vaulted_file_backup_policy : vaulted_policy.rsv_name => vaulted_policy }
    name        		= each.value.vaulted_file_backup_policy_name
-   #resource_group_name 	= azurerm_resource_group.rg.name
-   #recovery_vault_name 	= each.value.rsv_name
    parent_id   		= azurerm_recovery_services_vault.vault[each.key].id
    schema_validation_enabled = false
   

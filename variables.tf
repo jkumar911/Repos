@@ -2,21 +2,26 @@ variable "recovery_services_vault" {
   type = list(object({
     rsv_redundancy = string
     rsvindex       = string
+    sku            = string
 
   }))
   default = [{
     rsv_redundancy	= "LocallyRedundant"
-    rsvindex		= "01"
+    rsvindex		    = "01"
+    sku				      = "Standard"
     
     },
     {
       rsv_redundancy	= "ZoneRedundant"
-      rsvindex		= "01"
+      rsvindex		    = "01"
+      sku				      = "Standard"
+
 
     },
     {
       rsv_redundancy	= "GeoRedundant"
-      rsvindex		= "01"
+      rsvindex		    = "01"
+      sku				      = "Standard"
    
   }]
 }
@@ -37,13 +42,9 @@ variable "vaulted_file_backup_policy" {
     duration_monthly                = string
     retention_weekly_day            = list(string)
     retention_monthly_day           = list(string)
-    rsv_redundancy		              = string
-    rsvindex                        = string
   }))
   default = [{
     rsv_name			                  = "RSV-LRS-01"
-    rsv_redundancy                  = "LocallyRedundant"
-    rsvindex			                  = "01"
     vaulted_file_backup_policy_name = "BP050"
     schedule_frequency		          = "Daily"
     run_time                        = ["2026-02-13T23:00:00Z"]
@@ -59,8 +60,6 @@ variable "vaulted_file_backup_policy" {
     },
     {
       rsv_name			                  = "RSV-ZRS-01"
-      rsv_redundancy		              = "ZoneRedundant"
-      rsvindex			                  = "01"
       vaulted_file_backup_policy_name = "BP050"
       schedule_frequency	            = "Daily"
       run_time                        = ["2026-02-13T23:00:00Z"]
@@ -76,8 +75,6 @@ variable "vaulted_file_backup_policy" {
     },
     {
       rsv_name			                  = "RSV-GRS-01"
-      rsv_redundancy		              = "GeoRedundant"
-      rsvindex			                  = "01"
       vaulted_file_backup_policy_name = "BP050"
       schedule_frequency	            = "Daily"
       run_time                        = ["2026-02-13T20:00:00Z"]
