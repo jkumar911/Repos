@@ -8,8 +8,8 @@ resource "azapi_resource" "vaultedPolicy" {
 
   body = {
     properties = {
-      policyType           = "V2"
-      timeZone             = "UTC"
+      policyType           = each.value.policy_type
+      timeZone             = var.timezone
       backupManagementType = "AzureStorage"
       workloadType         = "AzureFileShare"
       backup_tier          = "vault-standard"
@@ -17,7 +17,7 @@ resource "azapi_resource" "vaultedPolicy" {
       schedulePolicy = {
         schedulePolicyType      = "SimpleSchedulePolicy"
         scheduleRunFrequency    = each.value.schedule_frequency
-        scheduleRunTimes        = each.value.run_time
+        scheduleRunTimes        = [each.value.run_time]
         scheduleWeeklyFrequency = each.value.weekly_frequency
       }
 
@@ -25,8 +25,9 @@ resource "azapi_resource" "vaultedPolicy" {
         snapshotRetentionInDays = each.value.snapshot_retention
         vaultRetention = {
           retentionPolicyType = "LongTermRetentionPolicy"
+
           dailySchedule = {
-            retentionTimes = each.value.retention_time
+            retentionTimes = [each.value.retention_time]
             retentionDuration = {
               count        = each.value.retention_daily_count
               durationType = each.value.duration_days
@@ -44,8 +45,10 @@ resource "azapi_resource" "vaultedPolicy" {
               daysOfTheWeek   = each.value.retention_weekly_day
               weeksOfTheMonth = each.value.retention_monthly_day
             }
+
             retentionScheduleDaily = var.ret_daily_sch
           }
+          
           weeklySchedule = var.weekly_sch
           yearlySchedule = var.yearly_sch
         }
