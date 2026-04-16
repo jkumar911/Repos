@@ -17,7 +17,7 @@ resource "azapi_resource" "vaultedPolicy" {
       schedulePolicy = {
         schedulePolicyType      = "SimpleSchedulePolicy"
         scheduleRunFrequency    = each.value.schedule_frequency
-        scheduleRunTimes        = [each.value.run_time]
+        scheduleRunTimes        = each.value.run_time
         scheduleWeeklyFrequency = each.value.weekly_frequency
       }
 
@@ -27,7 +27,7 @@ resource "azapi_resource" "vaultedPolicy" {
           retentionPolicyType = "LongTermRetentionPolicy"
 
           dailySchedule = {
-            retentionTimes = [each.value.retention_time]
+            retentionTimes = each.value.retention_time
             retentionDuration = {
               count        = each.value.retention_daily_count
               durationType = each.value.duration_days
@@ -48,7 +48,7 @@ resource "azapi_resource" "vaultedPolicy" {
 
             retentionScheduleDaily = var.ret_daily_sch
           }
-          
+
           weeklySchedule = var.weekly_sch
           yearlySchedule = var.yearly_sch
         }
